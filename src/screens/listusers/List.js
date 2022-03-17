@@ -1,10 +1,16 @@
-import {View, Text, Image, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import {useUser} from 'hooks';
 import {Icon} from 'react-native-elements';
 const {width, height} = Dimensions.get('window');
-// const WIDTH = Dimensions.get(window).width;
-// const HEIGHT = Dimensions.get(window).height;
+import {redColor, blueColor, greenColor, whiteColor1} from 'utils/theme';
 
 const ListUsers = () => {
   const {onFetch} = useUser();
@@ -48,13 +54,38 @@ const ListUsers = () => {
                   style={[styles.iconPersion, styles.radius5, styles.box]}
                 />
               </View>
-              <View style={styles.rowItem}>
-                <Icon
-                  name="heart"
-                  type="font-awesome"
-                  color="#f50"
-                  onPress={() => console.log('hello')}
-                />
+              <View style={styles.height10} />
+              <View style={[styles.spaceItem, styles.rowItem, styles.wrapBtn]}>
+                <TouchableWithoutFeedback onPress={() => {}}>
+                  <View
+                    style={[
+                      styles.borderCicle,
+                      styles.borderRed,
+                      styles.centerItem,
+                    ]}>
+                    <Icon name="close" type="font-awesome" color={redColor} />
+                  </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {}}>
+                  <View
+                    style={[
+                      styles.borderCicle,
+                      styles.borderBllue,
+                      styles.centerItem,
+                    ]}>
+                    <Icon name="star" type="font-awesome" color={blueColor} />
+                  </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {}}>
+                  <View
+                    style={[
+                      styles.borderCicle,
+                      styles.borderGreen,
+                      styles.centerItem,
+                    ]}>
+                    <Icon name="heart" type="font-awesome" color={greenColor} />
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
             </View>
           ))}
@@ -66,7 +97,13 @@ const ListUsers = () => {
 const styles = StyleSheet.create({
   container: {flex: 1},
   rowItem: {flexDirection: 'row'},
-  centerItem: {alignItems: 'center'},
+  centerItem: {alignItems: 'center', justifyContent: 'center'},
+  height10: {height: 20},
+  wrapBtn: {width: width - 20},
+  spaceItem: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   lrPadding: {
     paddingLeft: 10,
     paddingRight: 10,
@@ -94,13 +131,13 @@ const styles = StyleSheet.create({
   radius5: {
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#f5f5f5',
+    borderColor: whiteColor1,
   },
   textWhite: {
-    color: '#f5f5f5',
+    color: whiteColor1,
   },
   textGreen: {
-    color: 'green',
+    color: greenColor,
   },
   font18: {
     fontSize: 18,
@@ -110,6 +147,21 @@ const styles = StyleSheet.create({
   },
   fontBold: {
     fontWeight: 'bold',
+  },
+  borderCicle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 2,
+  },
+  borderGreen: {
+    borderColor: greenColor,
+  },
+  borderBllue: {
+    borderColor: blueColor,
+  },
+  borderRed: {
+    borderColor: redColor,
   },
 });
 
