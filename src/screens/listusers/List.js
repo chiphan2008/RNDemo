@@ -1,6 +1,7 @@
 import {View, Text, Image, StyleSheet, Dimensions} from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import {useUser} from 'hooks';
+import {Icon} from 'react-native-elements';
 const {width, height} = Dimensions.get('window');
 // const WIDTH = Dimensions.get(window).width;
 // const HEIGHT = Dimensions.get(window).height;
@@ -17,20 +18,6 @@ const ListUsers = () => {
   useEffect(() => {
     getData();
   }, []);
-
-  // const renderItem = user => (
-  //   <View key={user.id}>
-  //     <Image
-  //       source={user.picture}
-  //       style={[styles.iconPersion, styles.radius5]}
-  //     />
-  //     <View style={styles.overlay}>
-  //       <Text>
-  //         {user.title.toUpperCase()} {user.firstName} {user.lastName}
-  //       </Text>
-  //     </View>
-  //   </View>
-  // );
 
   return (
     <>
@@ -53,12 +40,20 @@ const ListUsers = () => {
                       ]}>
                       {'• '}
                     </Text>
-                    <Text style={[styles.textWhite]}>Recently Active</Text>
+                    <Text style={styles.textWhite}>Recently Active</Text>
                   </View>
                 </View>
                 <Image
                   source={{uri: user.picture}}
                   style={[styles.iconPersion, styles.radius5, styles.box]}
+                />
+              </View>
+              <View style={styles.rowItem}>
+                <Icon
+                  name="heart"
+                  type="font-awesome"
+                  color="#f50"
+                  onPress={() => console.log('hello')}
                 />
               </View>
             </View>
