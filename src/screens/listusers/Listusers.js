@@ -36,8 +36,6 @@ export const ListUsers = () => {
   const [hideBox, setHideBox] = useState({});
 
   const getData = useCallback(async () => {
-    // console.log('getData', page);
-    // console.log('getAgeFromUri()', getAgeFromUri());
     const {data} = await onFetch(page);
     setListUsers(data);
   }, [page]);
@@ -47,8 +45,7 @@ export const ListUsers = () => {
   }, [page]);
 
   const setAnimation = (item, type) => {
-    // bounceOutLeft
-    const id = item.id;
+    const {id} = item;
     if (activeRef.current !== id) {
       activeRef.current = id;
       switch (type) {
@@ -67,7 +64,6 @@ export const ListUsers = () => {
           break;
       }
       const listUsersfilltered = listUsers.filter(user => user.id !== id);
-      // console.log('listUsersfilltered', listUsersfilltered.length);
       if (listUsersfilltered.length === 0) {
         setPage(p => p + 1);
       }
@@ -205,7 +201,6 @@ export const ListUsers = () => {
                       param: KEY_STORE.likedUsers,
                     })
                   }
-                  // style={[styles.borderRed, styles.centerItem]}
                 />
               </View>
             </View>

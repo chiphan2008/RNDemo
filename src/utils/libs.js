@@ -10,6 +10,5 @@ export const getAgeFromUri = uri => {
 };
 
 export const setItem = async (key, data) => {
-  console.log('data', data);
   return await AsyncStorage.setItem(key, JSON.stringify(data));
 };
