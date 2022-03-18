@@ -16,6 +16,11 @@ Assuming you have all the requirements installed, you can run the project by run
 - `yarn start` to start the metro bundler, in a dedicated terminal
 - `yarn <platform>` to run the *platform* application (remember to start a simulator or connect a device)
 
+## Screenshot
+![](./screenshot/1.png)
+![](./screenshot/2.png)
+![](./screenshot/3.png)
+
 ## Library
 - [Animation](https://github.com/oblador/react-native-animatable)
 - [Icon](https://reactnativeelements.com/)

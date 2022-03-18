@@ -174,25 +174,31 @@ export const ListUsers = () => {
               <View style={[styles.rowItem, styles.centerItem]}>
                 <ButtonIcon
                   icon={
-                    <Icon name="close" type="font-awesome" color={redColor} />
+                    <View style={[styles.rowItem, styles.centerItem]}>
+                      <Icon name="close" type="font-awesome" color={redColor} />
+                      <Text style={[styles.textWhite, styles.fontBold]}>
+                        {' Second Look'}
+                      </Text>
+                    </View>
                   }
                   onPress={() =>
                     NavigationService.navigate(Routes.ListUsersFilter, {
                       param: KEY_STORE.passedUsers,
                     })
                   }
-                  // style={[styles.borderRed, styles.centerItem]}
                 />
-                <Text style={[styles.textWhite, styles.fontBold]}>
-                  {' Second Look'}
-                </Text>
               </View>
               <View style={styles.width20} />
               <View style={styles.width20} />
               <View style={[styles.rowItem, styles.centerItem]}>
                 <ButtonIcon
                   icon={
-                    <Icon name="heart" type="font-awesome" color={redColor} />
+                    <View style={[styles.rowItem, styles.centerItem]}>
+                      <Icon name="heart" type="font-awesome" color={redColor} />
+                      <Text style={[styles.textWhite, styles.fontBold]}>
+                        {' Liked List'}
+                      </Text>
+                    </View>
                   }
                   onPress={() =>
                     NavigationService.navigate(Routes.ListUsersFilter, {
@@ -201,9 +207,6 @@ export const ListUsers = () => {
                   }
                   // style={[styles.borderRed, styles.centerItem]}
                 />
-                <Text style={[styles.textWhite, styles.fontBold]}>
-                  {' Liked List'}
-                </Text>
               </View>
             </View>
           </View>

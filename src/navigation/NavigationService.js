@@ -7,7 +7,7 @@ import {
 export const navigationRef = createNavigationContainerRef();
 
 export const NavigationService = {
-  goBack: navigationRef.current?.goBack(),
+  goBack: () => navigationRef.current?.goBack(),
   route: navigationRef.current?.getCurrentRoute(),
   navigate: (name, params) => navigationRef.current?.navigate(name, params),
   replace: (name, params) =>
