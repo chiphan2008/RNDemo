@@ -22,7 +22,6 @@ export const ListUsersFilter = ({route}) => {
   const [listUsers, setListUsers] = useState([]);
   const getData = useCallback(async () => {
     const data = await onFilter(param);
-    console.log('getData', data);
     setListUsers(data);
   }, [param]);
 
