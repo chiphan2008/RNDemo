@@ -20,13 +20,16 @@ import {
   whiteColor,
   grayColor,
 } from 'utils/theme';
-import {ACTION_ANIMATION} from 'utils/constants';
-import {getAgeFromUri} from 'utils/libs';
+import {ACTION_ANIMATION, KEY_STORE} from 'utils/constants';
+import {getAgeFromUri, setItem} from 'utils/libs';
 import * as Animatable from 'react-native-animatable';
+import {NavigationService, Routes} from 'navigation';
 
 export const ListUsers = () => {
   const {onFetch} = useUser();
   const imgRef = useRef({});
+  const likedRef = useRef({});
+  const passedRef = useRef({});
   const activeRef = useRef({});
   const [listUsers, setListUsers] = useState([]);
   const [page, setPage] = useState(0);
@@ -43,8 +46,9 @@ export const ListUsers = () => {
     getData();
   }, [page]);
 
-  const setAnimation = (id, type) => {
+  const setAnimation = (item, type) => {
     // bounceOutLeft
+    const id = item.id;
     if (activeRef.current !== id) {
       activeRef.current = id;
       switch (type) {
@@ -52,9 +56,13 @@ export const ListUsers = () => {
           imgRef.current[id].fadeOutUpBig();
           break;
         case ACTION_ANIMATION[2]:
+          likedRef.current[id] = item;
+          setItem(KEY_STORE.likedUsers, likedRef.current);
           imgRef.current[id].lightSpeedOut();
           break;
         default:
+          passedRef.current[id] = item;
+          setItem(KEY_STORE.passedUsers, passedRef.current);
           imgRef.current[id].bounceOutLeft();
           break;
       }
@@ -124,7 +132,7 @@ export const ListUsers = () => {
                     icon={
                       <Icon name="close" type="font-awesome" color={redColor} />
                     }
-                    onPress={() => setAnimation(user.id, ACTION_ANIMATION[0])}
+                    onPress={() => setAnimation(user, ACTION_ANIMATION[0])}
                     style={[
                       styles.borderCicle,
                       styles.borderRed,
@@ -135,7 +143,7 @@ export const ListUsers = () => {
                     icon={
                       <Icon name="star" type="font-awesome" color={blueColor} />
                     }
-                    onPress={() => setAnimation(user.id, ACTION_ANIMATION[1])}
+                    onPress={() => setAnimation(user, ACTION_ANIMATION[1])}
                     style={[
                       styles.borderCicle,
                       styles.borderBllue,
@@ -150,7 +158,7 @@ export const ListUsers = () => {
                         color={greenColor}
                       />
                     }
-                    onPress={() => setAnimation(user.id, ACTION_ANIMATION[2])}
+                    onPress={() => setAnimation(user, ACTION_ANIMATION[2])}
                     style={[
                       styles.borderCicle,
                       styles.borderGreen,
@@ -168,7 +176,11 @@ export const ListUsers = () => {
                   icon={
                     <Icon name="close" type="font-awesome" color={redColor} />
                   }
-                  onPress={() => {}}
+                  onPress={() =>
+                    NavigationService.navigate(Routes.ListUsersFilter, {
+                      param: KEY_STORE.passedUsers,
+                    })
+                  }
                   // style={[styles.borderRed, styles.centerItem]}
                 />
                 <Text style={[styles.textWhite, styles.fontBold]}>
@@ -182,7 +194,11 @@ export const ListUsers = () => {
                   icon={
                     <Icon name="heart" type="font-awesome" color={redColor} />
                   }
-                  onPress={() => {}}
+                  onPress={() =>
+                    NavigationService.navigate(Routes.ListUsersFilter, {
+                      param: KEY_STORE.likedUsers,
+                    })
+                  }
                   // style={[styles.borderRed, styles.centerItem]}
                 />
                 <Text style={[styles.textWhite, styles.fontBold]}>

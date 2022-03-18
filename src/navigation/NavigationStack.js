@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Routes} from './Routes';
 import * as Screens from 'screens';
+import {navigationRef} from './NavigationService';
 // import {whiteColor} from 'utils/theme';
 
 const Stack = createNativeStackNavigator();
@@ -13,12 +14,16 @@ const StackNavigator = () => (
       headerShown: false,
     }}>
     <Stack.Screen name={Routes.ListUsers} component={Screens.ListUsers} />
+    <Stack.Screen
+      name={Routes.ListUsersFilter}
+      component={Screens.ListUsersFilter}
+    />
   </Stack.Navigator>
 );
 
 export const Navigatior = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <StackNavigator />
     </NavigationContainer>
   );
