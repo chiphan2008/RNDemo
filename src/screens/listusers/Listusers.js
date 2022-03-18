@@ -21,6 +21,7 @@ import {
   grayColor,
 } from 'utils/theme';
 import {ACTION_ANIMATION} from 'utils/constants';
+import {getAgeFromUri} from 'utils/libs';
 import * as Animatable from 'react-native-animatable';
 
 export const ListUsers = () => {
@@ -33,6 +34,7 @@ export const ListUsers = () => {
 
   const getData = useCallback(async () => {
     // console.log('getData', page);
+    // console.log('getAgeFromUri()', getAgeFromUri());
     const {data} = await onFetch(page);
     setListUsers(data);
   }, [page]);
@@ -96,7 +98,7 @@ export const ListUsers = () => {
                         styles.font18,
                         styles.fontBold,
                       ]}>
-                      {user.lastName}
+                      {user.lastName} {getAgeFromUri(user.picture)}
                     </Text>
                     <View style={[styles.rowItem, styles.centerItem]}>
                       <Text
