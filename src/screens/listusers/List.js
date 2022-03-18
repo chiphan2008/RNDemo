@@ -10,8 +10,10 @@ import {
 import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {useUser} from 'hooks';
 import {Icon} from 'react-native-elements';
+import {ButtonIcon} from 'components/Button';
 const {width, height} = Dimensions.get('window');
 import {redColor, blueColor, greenColor, whiteColor1} from 'utils/theme';
+import {ACTION_ANIMATION} from 'utils/constants';
 import * as Animatable from 'react-native-animatable';
 
 const ListUsers = () => {
@@ -23,6 +25,7 @@ const ListUsers = () => {
   const [hideBox, setHideBox] = useState({});
 
   const getData = useCallback(async () => {
+    // console.log('getData', page);
     const {data} = await onFetch(page);
     setListUsers(data);
   }, [page]);
@@ -31,11 +34,23 @@ const ListUsers = () => {
     getData();
   }, [page]);
 
-  const setAnimation = id => {
+  const setAnimation = (id, type) => {
+    // bounceOutLeft
     if (activeRef.current !== id) {
       activeRef.current = id;
-      imgRef.current[id].lightSpeedOut();
+      switch (type) {
+        case ACTION_ANIMATION[1]:
+          imgRef.current[id].fadeOutUpBig();
+          break;
+        case ACTION_ANIMATION[2]:
+          imgRef.current[id].lightSpeedOut();
+          break;
+        default:
+          imgRef.current[id].bounceOutLeft();
+          break;
+      }
       const listUsersfilltered = listUsers.filter(user => user.id !== id);
+      // console.log('listUsersfilltered', listUsersfilltered.length);
       if (listUsersfilltered.length === 0) {
         setPage(p => p + 1);
       }
@@ -46,7 +61,7 @@ const ListUsers = () => {
           setHideBox(hideBox);
           setListUsers(listUsersfilltered);
         }
-      }, 300);
+      }, 500);
     }
   };
 
@@ -63,7 +78,7 @@ const ListUsers = () => {
                 hideBox[user.id] ? styles.hiddenItem : {},
               ]}>
               <Animatable.View
-                duration={100}
+                duration={300}
                 ref={r => (imgRef.current[user.id] = r)}
                 style={[styles.box, styles.reverseCol]}>
                 <View style={[styles.overlay, styles.textPositionOverlay]}>
@@ -90,36 +105,39 @@ const ListUsers = () => {
               </Animatable.View>
               <View style={styles.height10} />
               <View style={[styles.spaceItem, styles.rowItem, styles.wrapBtn]}>
-                <TouchableWithoutFeedback onPress={() => {}}>
-                  <View
-                    style={[
-                      styles.borderCicle,
-                      styles.borderRed,
-                      styles.centerItem,
-                    ]}>
+                <ButtonIcon
+                  icon={
                     <Icon name="close" type="font-awesome" color={redColor} />
-                  </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => {}}>
-                  <View
-                    style={[
-                      styles.borderCicle,
-                      styles.borderBllue,
-                      styles.centerItem,
-                    ]}>
+                  }
+                  onPress={() => setAnimation(user.id, ACTION_ANIMATION[0])}
+                  style={[
+                    styles.borderCicle,
+                    styles.borderRed,
+                    styles.centerItem,
+                  ]}
+                />
+                <ButtonIcon
+                  icon={
                     <Icon name="star" type="font-awesome" color={blueColor} />
-                  </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => setAnimation(user.id)}>
-                  <View
-                    style={[
-                      styles.borderCicle,
-                      styles.borderGreen,
-                      styles.centerItem,
-                    ]}>
+                  }
+                  onPress={() => setAnimation(user.id, ACTION_ANIMATION[1])}
+                  style={[
+                    styles.borderCicle,
+                    styles.borderBllue,
+                    styles.centerItem,
+                  ]}
+                />
+                <ButtonIcon
+                  icon={
                     <Icon name="heart" type="font-awesome" color={greenColor} />
-                  </View>
-                </TouchableWithoutFeedback>
+                  }
+                  onPress={() => setAnimation(user.id, ACTION_ANIMATION[2])}
+                  style={[
+                    styles.borderCicle,
+                    styles.borderGreen,
+                    styles.centerItem,
+                  ]}
+                />
               </View>
             </View>
           ))}
