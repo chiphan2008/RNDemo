@@ -20,6 +20,7 @@ module.exports = {
           components: './src/components',
           hooks: './src/hooks',
           screens: './src/screens',
+          navigation: './src/navigation',
           utils: './src/utils',
         },
       },
